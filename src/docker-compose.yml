@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8
+    container_name: 'ems-mysql'
+    ports:
+      - 3310:3310
+    expose:
+      - 3310
+    environment:
+      - MYSQL_DATABASE=ems
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ems-phpmyadmin
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    restart: always
+    ports:
+      - 8081:80
+
+  web:
+    container_name: 'ems-django'
+    build: .
+    restart: always
+    command: bash -c "chmod +x /code/docker-entrypoint.sh && /code/docker-entrypoint.sh"
+    environment:
+      - AWS_PROFILE=wm-dev
+    volumes:
+      - .:/code
+      - /home/pablo/.aws:/root/.aws
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # redis:
+  #   image: 'redis:latest'
+  #   container_name: 'ems-redis'
+  #   ports:
+  #     - '6380:6379'
+
+volumes:
+  mysql_data:
+
+
+
