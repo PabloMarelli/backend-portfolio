@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from portfolio.models import (
+    Resumee,
+    Experience,
+    Contact
+)
+
+
+
+admin.site.register(Resumee)
+admin.site.register(Experience)
+admin.site.register(Contact)

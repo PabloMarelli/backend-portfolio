@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Display</title>
+    <style>
+      body {
+          background-color: black;
+          align: center;
+      }
+      pre {
+          max-width: 600px; /* Adjust the width as needed */
+          overflow-x: auto; /* Adds a scrollbar if content exceeds the width */
+          white-space: pre-wrap; /* Wraps text to next line */
+          word-wrap: break-word; /* Breaks long words onto the next line */
+          /* Additional styling as needed, e.g., padding, border, etc. */
+
+          background-color: #333;
+          color: white;
+          padding: 10px;
+          border-radius: 5px;
+          font-family: monospace;
+
+          margin: 0 auto;
+          display: block;
+
+      }
+    </style>
+</head>
+
+<body>
+    <pre>{{ json_data|safe }}</pre>
+</body>
+</html>

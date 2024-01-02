@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'restframework',
+    'rest_framework',
 
     'portfolio',
 ]
@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'portfolio',
         'USER': 'root',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
